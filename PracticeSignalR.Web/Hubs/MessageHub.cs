@@ -8,16 +8,21 @@ namespace PracticeSignalR.Web.Hubs
 {
     public class MessageHub : Hub
     {
-        public static List<string> AllMessages = new List<string>();
-        public Task SendMessageToAll(string message)
+        public static List<Tuple<string, string>> AllMessages = new List<Tuple<string, string>>();
+        private static IDictionary<string, string> clients = new Dictionary<string, string>();
+        public Task SendMessageToAll(string userName, string message)
         {
-            AllMessages.Add(message);
-            return Clients.All.SendAsync("ReceiveMessage", message);
+            AllMessages.Add(Tuple.Create(userName, message));
+            return Clients.All.SendAsync("ReceiveMessage", userName, message);
+        }
+
+        public override async Task OnDisconnectedAsync(Exception ex){
+            await base.OnDisconnectedAsync(ex);
         }
 
         public IEnumerable<Task> GetAllMessages(){
-            for(int i = 0; i < AllMessages.Count(); i++){
-                yield return Clients.Caller.SendAsync("ReceiveAllMessages", AllMessages[i]);
+            foreach(var message in AllMessages){
+                yield return Clients.Caller.SendAsync("ReceiveAllMessages", message.Item1, message.Item2);
             }
         }
     }
