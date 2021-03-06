@@ -5,14 +5,18 @@ var connection = new signalR.HubConnectionBuilder()
     .withUrl("/messageroom/messages")
     .build();
 
-connection.on("ReceiveAllMessages", function(userName, message){
+connection.on("ReceiveAllMessages", function(userName, message, finished){
         console.log("aha for, ", message);
         const msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         var div = document.createElement("div");
         div.innerHTML = userName + ": " + msg;
         document.getElementById("messages").appendChild(div);
+        if(finished){
+            div.innerHTML = "<p style='color:red'><b>---------------------- Joined ----------------------</b></p>";
+            document.getElementById("messages").appendChild(div);
+        }
 });
-
+connection
 
 connection.on("ReceiveMessage", function(userName, message){
     var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -26,8 +30,8 @@ connection.start()
         return console.error(err.toString());
     }))
     .catch(function(err) {
-return console.error(err.toString());
-});
+        return console.error(err.toString());
+    });
 
 document.getElementById("sendButton").addEventListener("click", function(event){
     var message = document.getElementById("message").value;

@@ -22,7 +22,12 @@ namespace PracticeSignalR.Web.Hubs
 
         public IEnumerable<Task> GetAllMessages(){
             foreach(var message in AllMessages){
-                yield return Clients.Caller.SendAsync("ReceiveAllMessages", message.Item1, message.Item2);
+                if(AllMessages.Last() == message){
+                    yield return Clients.Caller.SendAsync("ReceiveAllMessages", message.Item1, message.Item2, true);
+                    break;
+                }
+                    
+                yield return Clients.Caller.SendAsync("ReceiveAllMessages", message.Item1, message.Item2, false);
             }
         }
     }
