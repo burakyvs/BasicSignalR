@@ -53,7 +53,9 @@ namespace PracticeSignalR.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<MessageHub>("/messageroom/messages");
-                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Main}/{action=Index}/{id?}");
             });
         }
     }

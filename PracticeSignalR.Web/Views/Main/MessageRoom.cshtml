@@ -1,9 +1,10 @@
-@page
+@model string // username
 @{
     Layout = "";
     ViewData["Title"] = "Message Room";
 }
 
+<h4>Joined as: <b>@Model</b></h4>
 <textarea name="message" id="message"></textarea>
 <input type="button" id="sendButton" value="Send Message"/>
 

@@ -11,14 +11,12 @@ namespace PracticeSignalR.Web.Hubs
         public static List<string> AllMessages = new List<string>();
         public Task SendMessageToAll(string message)
         {
-            Console.WriteLine(message);
             AllMessages.Add(message);
             return Clients.All.SendAsync("ReceiveMessage", message);
         }
 
         public IEnumerable<Task> GetAllMessages(){
             for(int i = 0; i < AllMessages.Count(); i++){
-                Console.WriteLine("yield: " + AllMessages[i]);
                 yield return Clients.Caller.SendAsync("ReceiveAllMessages", AllMessages[i]);
             }
         }
