@@ -2,7 +2,7 @@
 <h3>A basic SignalR implementation example.</h3>
 
 <p>This program creates a MessageHub and allows users who joined the hub to chat with each other.</p>
-
+<i>(Coded with C# and Javascript in a ASP.NET Core Web application.)</i>
 <h3>Usage</h3>
 
 <ol>
