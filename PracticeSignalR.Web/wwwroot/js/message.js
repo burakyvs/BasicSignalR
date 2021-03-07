@@ -10,9 +10,11 @@ connection.on("ReceiveAllMessages", function(userName, message, finished){
         var div = document.createElement("div");
         div.innerHTML = userName + ": " + msg;
         document.getElementById("messages").appendChild(div);
+        console.log("last message: ", message);
         if(finished){
-            div.innerHTML = "<p style='color:red'><b>---------------------- Joined ----------------------</b></p>";
-            document.getElementById("messages").appendChild(div);
+            var joineDiv = document.createElement("div");
+            joineDiv.innerHTML = "<p style='color:red'><b>---------------------- Joined ----------------------</b></p>";
+            document.getElementById("messages").appendChild(joineDiv);
         }
 });
 
