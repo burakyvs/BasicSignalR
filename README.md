@@ -22,6 +22,6 @@
 <h5> Possible Coming Features</h5>
 <ul>
   <li> Message times.</li>
-  <li> Private chatting. (one user to another)</li>
+  <li> <del>Private chatting. (one user to another)</del><span style="color: green;"> ✓<span></li>
   <li> Group chatting.</li>
 </ul>
